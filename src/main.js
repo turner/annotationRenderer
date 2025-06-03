@@ -2,7 +2,7 @@ import GenomeUtils from './igvCore/genome/genomeUtils.js';
 import Genome from './igvCore/genome/genome.js';
 import { searchFeatures } from "./igvCore/search.js"
 import { createAnnotationRenderService } from './annotationRenderServiceFactory.js'
-import { knownGenomes } from './knownGenomes.js'
+import { knownGenomes } from './igvCore/genome/knownGenomes.js'
 
 let annotationRenderService
 

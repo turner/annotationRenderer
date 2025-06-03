@@ -1,12 +1,50 @@
-package-lock.json
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependencies
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
 .DS_Store
-/.idea/
-igv.js.iml
-/node_modules
-/npm-debug.log
-/css/.sass-cache/
-/dist/
-igv.css.map
-/deploy/
-/dev/oauth/oauthConfigPrivate.js
-/src/igvCore/bigwig/bwReader_nochromtree.js
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Testing
+coverage
+/coverage
+*.lcov
+
+# Build output
+/build
+/dist
+/dist-ssr
+
+# Cache
+.cache
+.parcel-cache
+.sass-cache
+*.sass.map
+*.css.map
+
+# Project specific
+package-lock.json

@@ -1,5 +1,5 @@
 {
-  "name": "igv-vite-app",
+  "name": "annotation-renderer",
   "private": true,
   "version": "0.0.0",
   "type": "module",
