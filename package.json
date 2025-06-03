@@ -1,0 +1,15 @@
+{
+  "name": "igv-vite-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "igv-utils": "github:igvteam/igv-utils#v1.5.10",
+    "vite": "^6.3.5"
+  }
+}
