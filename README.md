@@ -1,160 +1,91 @@
-# igv.js
-![build](https://github.com/igvteam/igv.js/actions/workflows/ci_build.yml/badge.svg)
-[![](https://img.shields.io/npm/dw/igv.svg)](https://www.npmjs.com/package/igv)
-[![](https://img.shields.io/github/last-commit/igvteam/igv.js.svg)](https://github.com/igvteam/igv.js)
-[![](https://img.shields.io/npm/l/igv.svg)](LICENSE)
-[![](https://data.jsdelivr.com/v1/package/npm/igv/badge)](https://www.jsdelivr.com/package/npm/igv)
+# Annotation Renderer
 
-igv.js is an embeddable interactive genome visualization component developed by the 
- [Integrative Genomics Viewer (IGV)](https://igv.org) team. 
+A web-based genome annotation visualization tool built with IGV (Integrative Genomics Viewer) utilities. This project provides a simple and efficient way to render genomic annotations and features in a web browser.
 
-## Citing igv.js
+## Features
 
-James T Robinson, Helga Thorvaldsdottir, Douglass Turner, Jill P Mesirov, igv.js: an embeddable JavaScript 
-implementation of the Integrative Genomics Viewer (IGV), Bioinformatics, Volume 39, Issue 1, January 2023, 
-btac830, https://doi.org/10.1093/bioinformatics/btac830
- 
-Below are examples and a quickstart guide.  See the [developer documentation](https://igv.org/doc/igvjs) for more documentation.  
+- Genome annotation visualization
+- Support for multiple genome builds (currently configured for hg19)
+- Interactive feature rendering
+- Efficient data loading and rendering
+- Built with modern web technologies
 
-# Examples
- 
-***[Alignments](https://igv.org/web/release/3.3.0/examples/cram-vcf.html)***
+## Prerequisites
 
-***[Interactions](https://igv.org/web/release/3.3.0/examples/interact.html)***
-
-***[Copy number](https://igv.org/web/release/3.3.0/examples/copyNumber.html)***
-
-***[Multiple regions](https://igv.org/web/release/3.3.0/examples/multi-locus.html)***
-
-***[Mutation Annotation Format (MAF)](https://igv.org/web/release/3.3.0/examples/maf-tcga.html)***
-
-***[Variant color options](https://igv.org/web/release/3.3.0/examples/variant-colors.html)***
-
-***[More](https://igv.org/web/release/3.3.0/examples/)***
-
- 
-# Quickstart
+- Node.js (v14 or higher)
+- npm or yarn package manager
 
 ## Installation
-igv.js consists of a single javascript file with no external dependencies.  
 
-Pre-built files for script include, AMD, or CJS module systems (igv.min.js) and an ES6 module (igv.esm.min.js)
-can be downloaded from [https://cdn.jsdelivr.net/npm/igv@3.3.0/dist/](https://cdn.jsdelivr.net/npm/igv@3.3.0/dist/). 
-
-To import igv as an ES6 module
-
-```javascript
-import igv from "https://cdn.jsdelivr.net/npm/igv@3.3.0/dist/igv.esm.min.js"
-``` 
-
-Or as a script include (defines the "igv" global)
-
-```html
-<script src="https://cdn.jsdelivr.net/npm/igv@3.3.0/dist/igv.min.js"></script>
-```   
- 
-Alternatively you can install with npm  
- 
- ```npm install igv```
-
-and source the appropriate file for your module system (igv.min.js or igv.esm.min.js)  in node_modules/igv/dist.
-
-
-## Usage
-
-To create an igv.js ***browser*** supply a container div 
-and an initial configuration defining the reference genome, initial tracks, and other state to the 
-function ```igv.createBrowser(div, config)```.  
-
-This function returns a promise for an igv.Browser object which can used to control the browser.  For example, to open
-a browser on a single alignment track opened at a specific locus:
-
-```
-      var igvDiv = document.getElementById("igv-div");
-      var options =
-        {
-            genome: "hg38",
-            locus: "chr8:127,736,588-127,739,371",
-            tracks: [
-                {
-                    "name": "HG00103",
-                    "url": "https://s3.amazonaws.com/1000genomes/data/HG00103/alignment/HG00103.alt_bwamem_GRCh38DH.20150718.GBR.low_coverage.cram",
-                    "indexURL": "https://s3.amazonaws.com/1000genomes/data/HG00103/alignment/HG00103.alt_bwamem_GRCh38DH.20150718.GBR.low_coverage.cram.crai",
-                    "format": "cram"
-                }
-            ]
-        };
-
-        igv.createBrowser(igvDiv, options)
-                .then(function (browser) {
-                    console.log("Created IGV browser");
-                })
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/annotationRenderer.git
+cd annotationRenderer
 ```
 
-## Documentation
-
-Full documentation of the igv.js API is available at [https://igv.org/doc/igvjs/](https://igv.org/doc/igvjs/).
+2. Install dependencies:
+```bash
+npm install
+```
 
 ## Development
 
-### Requirements
+To start the development server:
 
-Building igv.js and running the examples require Linux or MacOS.  Other Unix environments will probably
-work but have not been tested.  
+```bash
+npm run dev
+```
 
-Windows users can use [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
+This will start the Vite development server, typically at `http://localhost:5173`.
 
-### Building
+## Building for Production
 
-Building igv.js and running the examples requires [node.js](https://nodejs.org/).
+To create a production build:
 
-
-```  
-git clone https://github.com/igvteam/igv.js.git
-cd igv.js
-npm install
+```bash
 npm run build
 ```
 
-This creates a dist folder with the following files
+The built files will be in the `dist` directory.
 
-* igv.js - UMDS file for script include, AMD, or CJS modules.  A script include will define an "igv" global.
-* igv.min.js - minified version of igv.js
-* igv.esm.js --  ES6 module 
-* igv.esm.min.js --  minified version of igv.esm.js
+## Project Structure
 
-### Tests
+- `src/` - Source code directory
+  - `main.js` - Main application entry point
+  - `annotationRenderService.js` - Core annotation rendering service
+  - `annotationRenderServiceFactory.js` - Factory for creating render services
+  - `igvCore/` - IGV utilities and core functionality
 
-To run the tests from the command line
+## Usage
 
+The annotation renderer can be used to visualize genomic features by providing:
+- Chromosome
+- Start position
+- End position
+- Feature data
+
+Example usage:
+```javascript
+const renderService = createAnnotationRenderService(container, genome);
+const features = await renderService.getFeatures('chr16', 26716013, 29371136);
+renderService.render({ 
+    chr: 'chr16', 
+    bpStart: 26716013, 
+    bpEnd: 29371136, 
+    features 
+});
 ```
-npm run test
-```
 
+## Contributing
 
-### Examples
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
 
-To run the examples install [http-server](https://www.npmjs.com/package/http-server).
+## License
 
-Start  http-server from the project root directory
+This project is licensed under the terms of the license included in the [LICENSE](LICENSE) file.
 
-```bash
-npx http-server 
-```
+## Acknowledgments
 
-Then open [http://localhost:8080/examples](http://localhost:8080/examples) in a web browser.
+- Built with [IGV-utils](https://github.com/igvteam/igv-utils)
+- Powered by [Vite](https://vitejs.dev/)
 
-
-# Supported Browsers
-
-igv.js require a modern web browser with support for Javascript ECMAScript 2015 (ES6). 
-
-# License
-
-igv.js is [MIT](/LICENSE) licensed.
-
-
-
-### [Release Notes](https://github.com/igvteam/igv.js/releases)
-
- 
