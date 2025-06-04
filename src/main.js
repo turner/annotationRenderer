@@ -5,7 +5,7 @@ let annotationRenderService
 let genomeLibrary
 document.addEventListener('DOMContentLoaded', async () => {
 
-    const genomeId = 'hg19'   
+    const genomeId = 'GRCh38'
 
     genomeLibrary = new GenomeLibrary()
     const {genome, geneFeatureSource, geneRenderer} = await genomeLibrary.getGenomePayload(genomeId)
