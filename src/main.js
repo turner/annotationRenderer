@@ -1,22 +1,17 @@
-import GenomeUtils from './igvCore/genome/genomeUtils.js';
-import Genome from './igvCore/genome/genome.js';
-import { searchFeatures } from "./igvCore/search.js"
-import { createAnnotationRenderService } from './annotationRenderServiceFactory.js'
-import { knownGenomes } from './igvCore/genome/knownGenomes.js'
+import GenomeLibrary from './igvCore/genome/genomeLibrary.js'
+import AnnotationRenderService from './annotationRenderService.js'
 
 let annotationRenderService
-
+let genomeLibrary
 document.addEventListener('DOMContentLoaded', async () => {
 
-    await GenomeUtils.initializeGenomes({})
+    const genomeId = 'hg19'   
 
-    const genomeName = 'hg19'
+    genomeLibrary = new GenomeLibrary()
+    const {genome, geneFeatureSource, geneRenderer} = await genomeLibrary.getGenomePayload(genomeId)
 
-    const genome = await Genome.createGenome(knownGenomes[genomeName])
-
-    annotationRenderService = createAnnotationRenderService(document.querySelector('#dat-gene-render-container'), genome)
-
-    // const { chr, start:bpStart, end:bpEnd, name } = await searchFeatures({ genome }, 'brca2')
+    const container = document.querySelector('#dat-gene-render-container')
+    annotationRenderService = new AnnotationRenderService(container, geneFeatureSource, geneRenderer)
 
     // random locus
     const chr = 'chr16'
@@ -25,5 +20,5 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const features = await annotationRenderService.getFeatures(chr, bpStart, bpEnd)
 
-    annotationRenderService.render({ chr, bpStart, bpEnd, features })
+    annotationRenderService.render({ container, chr, bpStart, bpEnd, features })
 });
