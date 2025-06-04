@@ -1,39 +1,37 @@
 class AnnotationRenderService {
-    constructor(container, featureRenderer, featureSource) {
-        this.container = container;
-        this.featureRenderer = featureRenderer;
+    constructor(container, featureSource, featureRenderer) {
+
         this.featureSource = featureSource;
+        this.featureRenderer = featureRenderer;
 
-        // Create canvas element
-        this.canvas = container.querySelector('canvas');
-        this.ctx = this.canvas.getContext('2d');
-
-        this.boundResizeHandler = this.resizeCanvas.bind(this);
+        this.boundResizeHandler = this.resizeCanvas.bind(this, container);
         window.addEventListener('resize', this.boundResizeHandler);
 
         // Initial resize
-        this.resizeCanvas();
+        this.resizeCanvas(container);
     }
 
-    resizeCanvas() {
+    resizeCanvas(container) {
         const dpr = window.devicePixelRatio || 1;
-        const { width, height } = this.container.getBoundingClientRect();
+        const { width, height } = container.getBoundingClientRect();
 
         // Set the canvas size in pixels
-        this.canvas.width = width * dpr;
-        this.canvas.height = height * dpr;
+        const canvas = container.querySelector('canvas')
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
 
         // Scale the canvas context to match the device pixel ratio
-        this.ctx.scale(dpr, dpr);
+        const ctx = canvas.getContext('2d')
+        ctx.scale(dpr, dpr);
 
         // Set the canvas CSS size to match the container
-        this.canvas.style.width = `${width}px`;
-        this.canvas.style.height = `${height}px`
+        canvas.style.width = `${width}px`;
+        canvas.style.height = `${height}px`
 
         if (this.drawConfig) {
             this.render(this.drawConfig);
         } else {
-            this.ctx.clearRect(0, 0, width, height);
+            ctx.clearRect(0, 0, width, height);
         }
 
     }
@@ -42,14 +40,18 @@ class AnnotationRenderService {
         return await this.featureSource.getFeatures({chr, start, end})
     }   
 
-    render(drawConfig) {
+    render(renderConfig) {
 
-        const context = this.ctx
-        const { width:pixelWidth, height:pixelHeight } = this.canvas.getBoundingClientRect()
-        const bpPerPixel = (drawConfig.bpEnd - drawConfig.bpStart) / pixelWidth
+        const { container, bpStart, bpEnd } = renderConfig
+
+        const canvas = container.querySelector('canvas')
+        const { width:pixelWidth, height:pixelHeight } = canvas.getBoundingClientRect()
+
+        const bpPerPixel = (bpEnd - bpStart) / pixelWidth
         const viewportWidth = pixelWidth
-
-        this.drawConfig = { ...drawConfig, context, bpPerPixel, viewportWidth, pixelWidth, pixelHeight }
+        
+        const context = canvas.getContext('2d')
+        this.drawConfig = { ...renderConfig, context, bpPerPixel, viewportWidth, pixelWidth, pixelHeight }
         this.featureRenderer.draw(this.drawConfig)
     }
 }

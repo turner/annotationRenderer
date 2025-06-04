@@ -1,0 +1,18 @@
+hg38#GRCh38
+hg38_1kg#hg38 1kg
+hg19#GRCh37
+mm39#GRCm39
+mm10#GRCm38
+mm9#NCBI37
+rn6#RGCS 6.0
+gorGor6#Kamilah_GGO_v0
+gorGor4#gorGor4.1
+panTro4#SAC 2.1.4
+panPan2#MPI-EVA panpan1.1
+canFam4#UU_Cfam_GSD_1.0
+canFam3#Broad CanFam3.1
+bosTau9#ARS-UCD1.2
+bosTau8#UMD_3.1.1
+susScr11#SGSC Sscrofa11.1
+danRer11#GRCZ11
+danRer10#GRCZ10
